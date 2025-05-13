@@ -1,0 +1,19 @@
+<nz-space>
+  <button nz-button nzSize="large" nzType="primary" (click)="open()">
+    Cart
+  </button>
+</nz-space>
+
+<nz-drawer
+  nzWidth="500px"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  [nzTitle]="title"
+  (nzOnClose)="close()"
+>
+  <ng-container *nzDrawerContent>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+  </ng-container>
+</nz-drawer>
