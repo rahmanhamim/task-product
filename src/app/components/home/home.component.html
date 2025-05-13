@@ -1,0 +1,21 @@
+<div class="home">
+  <!-- src/app/home/home.component.html -->
+
+  <div class="products-container">
+    @for (product of products; track product.id) {
+    <app-product-card [product]="product" />
+    }
+  </div>
+
+  <button
+    nz-button
+    (click)="loadProducts()"
+    style="margin-top: 20px"
+    nzSize="large"
+    nzType="dashed"
+    [nzLoading]="loading"
+    [disabled]="loading"
+  >
+    Load More
+  </button>
+</div>

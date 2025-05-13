@@ -1,0 +1,12 @@
+.sidebar-layout-container {
+  display: flex;
+  gap: 4%;
+}
+
+.sidebar {
+  width: 30%;
+}
+
+.content {
+  width: 65%;
+}

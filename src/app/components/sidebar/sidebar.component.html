@@ -1,0 +1,13 @@
+<div class="sidebar">
+  @for (category of productCategories; track $index) {
+  <a
+    [routerLink]="`/products/${category.slug}`"
+    routerLinkActive="router-link-active"
+    nz-button
+    nzType="dashed"
+    style="width: 100%; text-align: left"
+  >
+    {{ category.name }}
+  </a>
+  }
+</div>
