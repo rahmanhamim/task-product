@@ -7,13 +7,19 @@ import { IProduct } from '../../model';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { SearchFiltersComponent } from '../search-filters/search-filters.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  imports: [ProductCardComponent, NzButtonComponent, NzSpinModule],
+  imports: [
+    ProductCardComponent,
+    NzButtonComponent,
+    NzSpinModule,
+    SearchFiltersComponent,
+  ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   products: IProduct[] = [];

@@ -5,14 +5,15 @@
   style="
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 200px;
+    height: 100vh;
+    padding-top: 200px;
   "
 >
   <nz-spin nzSimple nzSize="large"></nz-spin>
 </div>
 } @else {
 <div class="home">
+  <app-search-filters />
   <div class="products-container">
     @for (product of products; track product.id) {
     <app-product-card [product]="product" />
