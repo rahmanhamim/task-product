@@ -57,3 +57,7 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+our company have a php laravel project. i'm a frontend developer don't know anything about php laravel. backend developer just said he wont provide the project or db access to company. demanding extra pay. now comapny want's me to redeploy the project in hostinger. but i dont have any idea. compnay just have project in github. no database. what to do?. company don't care if previous users data gone.
+
+i've installed composer and xammp in my local machine. created a mysql database in hostinger hpanel. installed composer install command in project folder through vs code terminal. and from hostinger remote access allowed for the database now what to do?.

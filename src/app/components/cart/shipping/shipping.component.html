@@ -22,7 +22,7 @@
         />
       </p>
     </form>
-    <p class="total">Total: {{ 120 | currency : "GBP" }}</p>
+    <p class="total">Total: {{ totalAmount | async | currency : "GBP" }}</p>
   </div>
   <button
     type="submit"
@@ -32,6 +32,6 @@
     nzType="primary"
     class="checkout-button"
   >
-    Checkout {{ 120 | currency : "GBP" }}
+    Checkout {{ totalAmount | async | currency : "GBP" }}
   </button>
 </div>

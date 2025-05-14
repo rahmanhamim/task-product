@@ -1,11 +1,23 @@
 <div class="cart-product-card">
   <img [src]="cartProduct.thumbnail" alt="product" />
-  <p class="title">{{ cartProduct.title }}</p>
+  <div class="product-info">
+    <p class="title">{{ cartProduct.title }}</p>
+    <p class="price">Unit Price: {{ cartProduct.price | currency : "GBP" }}</p>
+  </div>
   <div class="action-buttons">
-    <button nz-button nzType="dashed" nzShape="round">+</button>
+    <button nz-button nzType="dashed" nzShape="round" (click)="onAddToCart()">
+      +
+    </button>
     <span class="count">
       {{ cartProduct.quantity || 0 }}
     </span>
-    <button nz-button nzType="dashed" nzShape="round">-</button>
+    <button
+      nz-button
+      nzType="dashed"
+      nzShape="round"
+      (click)="onRemoveFromCart()"
+    >
+      -
+    </button>
   </div>
 </div>

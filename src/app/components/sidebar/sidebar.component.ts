@@ -27,7 +27,5 @@ export class SidebarComponent implements OnInit {
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
     });
-
-    console.log(this.productCategories);
   }
 }

@@ -15,11 +15,16 @@
   background: linear-gradient(135deg, #3291841f, #3b39bd1e);
 }
 
+.cart-product-card .product-info {
+  flex-grow: 1;
+}
+
 .cart-product-card .title {
   font-size: 1.5rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1;
   text-overflow: ellipsis;
+  margin-bottom: 0.5em;
 }
 
 .cart-product-card .action-buttons {

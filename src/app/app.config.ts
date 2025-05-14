@@ -8,6 +8,7 @@ import {
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
   console.log('Outgoing request', req);
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([loggingInterceptor])),
+    provideAnimationsAsync(),
   ],
 };

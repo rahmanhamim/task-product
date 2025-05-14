@@ -1,0 +1,48 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <a routerLink="/">
+    <img src="/site-logo.jpg" alt="" width="100" />
+  </a>
+  <h2>Login</h2>
+
+  <div>
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      placeholder="Enter your email"
+      nz-input
+      nzSize="large"
+      [formControl]="form.controls.email"
+    />
+    @if(emailIsInvalid) {
+    <p class="error">Invalid email detected</p>
+    }
+  </div>
+
+  <div>
+    <label for="password">Password</label>
+    <input
+      id="password"
+      type="password"
+      name="password"
+      placeholder="Enter your password"
+      nz-input
+      nzSize="large"
+      [formControl]="form.controls.password"
+    />
+    @if(passwordIsInvalid) {
+    <p class="error">Invalid password detected</p>
+    }
+  </div>
+
+  <button
+    class="button"
+    nz-button
+    nzType="primary"
+    nzSize="large"
+    style="width: 400px; max-width: 95vh; margin-top: 2rem"
+  >
+    Login
+  </button>
+</form>

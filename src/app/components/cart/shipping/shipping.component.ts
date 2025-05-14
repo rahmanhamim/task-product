@@ -1,5 +1,5 @@
-import { CurrencyPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { AsyncPipe, CurrencyPipe } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-shipping',
@@ -17,11 +18,16 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     ReactiveFormsModule,
     NzInputModule,
     NzButtonComponent,
+    AsyncPipe,
   ],
   templateUrl: './shipping.component.html',
   styleUrl: './shipping.component.css',
 })
 export class ShippingComponent {
+  cartService = inject(CartService);
+
+  totalAmount = this.cartService.totalPrice$;
+
   form = new FormGroup({
     name: new FormControl('', {
       validators: [Validators.required],
