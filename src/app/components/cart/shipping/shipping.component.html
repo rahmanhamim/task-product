@@ -1,0 +1,37 @@
+<div>
+  <div class="shipping-details-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <p>
+        <input
+          id="name"
+          type="name"
+          name="name"
+          placeholder="Enter your name"
+          nz-input
+          [formControl]="form.controls.name"
+        />
+      </p>
+      <p>
+        <input
+          id="address"
+          type="address"
+          name="address"
+          placeholder="Enter your address"
+          nz-input
+          [formControl]="form.controls.address"
+        />
+      </p>
+    </form>
+    <p class="total">Total: {{ 120 | currency : "GBP" }}</p>
+  </div>
+  <button
+    type="submit"
+    [disabled]="form.invalid"
+    nz-button
+    nzSize="large"
+    nzType="primary"
+    class="checkout-button"
+  >
+    Checkout {{ 120 | currency : "GBP" }}
+  </button>
+</div>

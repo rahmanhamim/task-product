@@ -1,0 +1,17 @@
+.shipping-details-container {
+  display: flex;
+  gap: 1rem;
+  margin-block: 1rem;
+  justify-content: space-between;
+}
+
+.shipping-details-container .total {
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.checkout-button {
+  display: flex;
+  margin-left: auto;
+}

@@ -12,8 +12,7 @@
   (nzOnClose)="close()"
 >
   <ng-container *nzDrawerContent>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+    <app-cart-product-card [cartProduct]="cartProducts[0]" />
+    <app-shipping />
   </ng-container>
 </nz-drawer>

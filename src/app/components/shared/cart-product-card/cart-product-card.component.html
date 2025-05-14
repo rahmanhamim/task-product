@@ -1,0 +1,11 @@
+<div class="cart-product-card">
+  <img [src]="cartProduct.thumbnail" alt="product" />
+  <p class="title">{{ cartProduct.title }}</p>
+  <div class="action-buttons">
+    <button nz-button nzType="dashed" nzShape="round">+</button>
+    <span class="count">
+      {{ cartProduct.quantity || 0 }}
+    </span>
+    <button nz-button nzType="dashed" nzShape="round">-</button>
+  </div>
+</div>

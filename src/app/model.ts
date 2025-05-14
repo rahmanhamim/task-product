@@ -17,35 +17,39 @@ export interface IProduct {
   brand: string;
   sku: string;
   weight: number;
-  dimensions: Dimensions;
+  dimensions: IDimensions;
   warrantyInformation: string;
   shippingInformation: string;
   availabilityStatus: string;
-  reviews: Review[];
+  reviews: IReview[];
   returnPolicy: string;
   minimumOrderQuantity: number;
-  meta: Meta;
+  meta: IMeta;
   images: string[];
   thumbnail: string;
 }
 
-export interface Dimensions {
+export interface IDimensions {
   width: number;
   height: number;
   depth: number;
 }
 
-export interface Meta {
-  createdAt: Date;
-  updatedAt: Date;
+export interface IMeta {
+  createdAt: string;
+  updatedAt: string;
   barcode: string;
   qrCode: string;
 }
 
-export interface Review {
+export interface IReview {
   rating: number;
   comment: string;
-  date: Date;
+  date: string;
   reviewerName: string;
   reviewerEmail: string;
+}
+
+export interface ICartItem extends IProduct {
+  quantity?: number;
 }
