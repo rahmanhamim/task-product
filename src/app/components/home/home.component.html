@@ -1,6 +1,18 @@
-<div class="home">
-  <!-- src/app/home/home.component.html -->
+<!-- if no products and loading then show spinner -->
 
+@if(products.length <= 0 && loading) {
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  "
+>
+  <nz-spin nzSimple nzSize="large"></nz-spin>
+</div>
+} @else {
+<div class="home">
   <div class="products-container">
     @for (product of products; track product.id) {
     <app-product-card [product]="product" />
@@ -18,3 +30,4 @@
     Load More
   </button>
 </div>
+}
