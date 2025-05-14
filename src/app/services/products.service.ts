@@ -22,10 +22,19 @@ export class ProductsService {
     );
   }
 
-  fetchProducts(limit: number, skip: number) {
-    return this.httpClient.get<{ products: IProduct[] }>(
-      `${BASE_URL}/products?limit=${limit}&skip=${skip}`
-    );
+  fetchProducts({
+    limit,
+    skip,
+    category,
+  }: {
+    limit: number;
+    skip: number;
+    category?: string;
+  }) {
+    const url = category
+      ? `${BASE_URL}/products/category/${category}?limit=${limit}&skip=${skip}`
+      : `${BASE_URL}/products?limit=${limit}&skip=${skip}`;
+    return this.httpClient.get<{ products: IProduct[] }>(url);
   }
 
   fetchProductById(id: number) {

@@ -1,7 +1,7 @@
 <div class="sidebar">
   @for (category of productCategories; track $index) {
   <a
-    [routerLink]="`/products/${category.slug}`"
+    [routerLink]="`/products/category/${category.slug}`"
     routerLinkActive="router-link-active"
     nz-button
     nzType="dashed"
