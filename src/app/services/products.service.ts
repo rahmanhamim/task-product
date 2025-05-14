@@ -27,4 +27,8 @@ export class ProductsService {
       `${BASE_URL}/products?limit=${limit}&skip=${skip}`
     );
   }
+
+  fetchProductById(id: number) {
+    return this.httpClient.get<IProduct>(`${BASE_URL}/products/${id}`);
+  }
 }

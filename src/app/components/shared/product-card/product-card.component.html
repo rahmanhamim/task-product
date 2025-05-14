@@ -1,8 +1,14 @@
 <div class="product-card">
-  <img class="thumbnail" [src]="product.thumbnail" alt="product" />
+  <a class="thumbnail" [routerLink]="['/product', product.id]">
+    <img [src]="product.thumbnail" alt="product" />
+  </a>
   <div class="product-info">
-    <p class="title">{{ product.title }}</p>
-    <p class="description">{{ product.description }}</p>
+    <a class="thumbnail" [routerLink]="['/product', product.id]">
+      <p class="title">{{ product.title }}</p>
+    </a>
+    <a class="thumbnail" [routerLink]="['/product', product.id]">
+      <p class="description">{{ product.description }}</p>
+    </a>
 
     @if(isAlreadyInCart$ | async) {
     <button

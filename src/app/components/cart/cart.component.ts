@@ -26,7 +26,7 @@ export class CartComponent {
   title = 'Cart ';
   visible = false;
 
-  cartService = inject(CartService);
+  private cartService = inject(CartService);
 
   cartProducts = this.cartService.cartProducts$;
   cartTotalItemsCount = this.cartService.cartTotalItemsCount$;

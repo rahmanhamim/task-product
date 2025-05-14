@@ -14,7 +14,7 @@ import { CurrencyPipe } from '@angular/common';
 export class CartProductCardComponent {
   @Input({ required: true }) cartProduct!: ICartItem;
 
-  cartService = inject(CartService);
+  private cartService = inject(CartService);
 
   onAddToCart() {
     this.cartService.addProductToCart(this.cartProduct);

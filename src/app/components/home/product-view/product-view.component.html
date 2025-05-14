@@ -1,0 +1,47 @@
+@if(isFetching) {
+<div
+  style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+  "
+>
+  <nz-spin nzSimple nzSize="large"></nz-spin>
+</div>
+} @else {
+<div class="product-container">
+  <img
+    [src]="selectedImage ? selectedImage : product?.thumbnail"
+    [alt]="product?.title"
+    [title]="product?.title"
+    [width]="200"
+    [height]="200"
+    [loading]
+    alt=""
+  />
+  <div class="product-info">
+    <h1 class="title">{{ product?.title }}</h1>
+    <p class="description">{{ product?.description }}</p>
+    <p class="price">Price: {{ product?.price | currency }}</p>
+  </div>
+</div>
+
+<div class="image-gallery">
+  @for (imgUrl of product?.images; track $index) {
+  <img
+    [src]="imgUrl"
+    [alt]="product?.title"
+    [title]="product?.title"
+    width="190"
+    height="90"
+    loading="lazy"
+    (click)="onImageClick(imgUrl)"
+  />
+  }
+</div>
+
+<button nz-button nzType="primary" nzSize="large" (click)="onAddToCart()">
+  Add to cart
+</button>
+}

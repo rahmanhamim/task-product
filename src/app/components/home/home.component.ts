@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   skip = 5;
   loading = true;
 
-  productsService = inject(ProductsService);
+  private productsService = inject(ProductsService);
 
   ngOnInit() {
     this.loadProducts();

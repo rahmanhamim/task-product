@@ -24,7 +24,7 @@ import { CartService } from '../../../services/cart.service';
   styleUrl: './shipping.component.css',
 })
 export class ShippingComponent {
-  cartService = inject(CartService);
+  private cartService = inject(CartService);
 
   totalAmount = this.cartService.totalPrice$;
 
