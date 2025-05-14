@@ -27,18 +27,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   skip = 0;
   loading = true;
   category: string | null = null;
+  search: string | null = null;
 
   private route = inject(ActivatedRoute);
   private productsService = inject(ProductsService);
   private routeSub?: Subscription;
 
   ngOnInit() {
-    this.routeSub = this.route.paramMap.subscribe((params: ParamMap) => {
-      this.category = params.get('category');
-      this.products = [];
-      this.skip = 0;
-      this.loadProducts();
-    });
+    this.routeSub = this.route.queryParamMap.subscribe(
+      (queryParams: ParamMap) => {
+        this.search = queryParams.get('search'); // Read search query parameter
+        this.route.paramMap.subscribe((params: ParamMap) => {
+          this.category = params.get('category');
+          this.products = [];
+          this.skip = 0;
+          this.loadProducts();
+        });
+      }
+    );
   }
 
   loadProducts() {
@@ -48,6 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         limit: this.limit,
         skip: this.skip,
         category: this.category ?? undefined,
+        search: this.search ?? undefined, // Pass search term
       })
       .subscribe((res) => {
         this.products = [...this.products, ...res.products];

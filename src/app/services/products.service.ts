@@ -22,18 +22,44 @@ export class ProductsService {
     );
   }
 
+  // fetchProducts({
+  //   limit,
+  //   skip,
+  //   category,
+  // }: {
+  //   limit: number;
+  //   skip: number;
+  //   category?: string;
+  // }) {
+  //   const url = category
+  //     ? `${BASE_URL}/products/category/${category}?limit=${limit}&skip=${skip}`
+  //     : `${BASE_URL}/products?limit=${limit}&skip=${skip}`;
+  //   return this.httpClient.get<{ products: IProduct[] }>(url);
+  // }
+
   fetchProducts({
     limit,
     skip,
     category,
+    search,
   }: {
     limit: number;
     skip: number;
     category?: string;
+    search?: string;
   }) {
-    const url = category
-      ? `${BASE_URL}/products/category/${category}?limit=${limit}&skip=${skip}`
-      : `${BASE_URL}/products?limit=${limit}&skip=${skip}`;
+    let url = category
+      ? `${BASE_URL}/products/category/${category}`
+      : `${BASE_URL}/products`;
+
+    // Add search parameter if provided
+    if (search) {
+      url = `${BASE_URL}/products/search?q=${encodeURIComponent(search)}`;
+    }
+
+    // Append limit and skip parameters
+    url += `${search ? '&' : '?'}limit=${limit}&skip=${skip}`;
+
     return this.httpClient.get<{ products: IProduct[] }>(url);
   }
 

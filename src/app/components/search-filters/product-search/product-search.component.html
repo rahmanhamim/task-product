@@ -1,6 +1,16 @@
-<nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
-  <input type="text" nz-input placeholder="input search text" />
-</nz-input-group>
-<ng-template #suffixButton>
-  <button nz-button nzType="primary" nzSize="large" nzSearch>Search</button>
-</ng-template>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <nz-input-group nzSearch nzSize="large" [nzAddOnAfter]="suffixButton">
+    <input
+      type="text"
+      nz-input
+      placeholder="Enter search text"
+      [formControl]="form.controls.searchText"
+    />
+  </nz-input-group>
+
+  <ng-template #suffixButton>
+    <button nz-button nzType="primary" type="submit" nzSize="large" nzSearch>
+      Search
+    </button>
+  </ng-template>
+</form>
