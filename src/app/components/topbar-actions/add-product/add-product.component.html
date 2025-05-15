@@ -5,28 +5,67 @@
   [(nzVisible)]="isVisible"
   [nzTitle]="modalTitle"
   [nzContent]="modalContent"
-  [nzFooter]="modalFooter"
+  [nzFooter]="null"
   (nzOnCancel)="handleCancel()"
 >
   <ng-template #modalTitle> Add New Product </ng-template>
 
   <ng-template #modalContent>
-    <p>Modal Content</p>
-    <p>Modal Content</p>
-    <p>Modal Content</p>
-    <p>Modal Content</p>
-    <p>Modal Content</p>
-  </ng-template>
-
-  <ng-template #modalFooter>
-    <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
-    <button
-      nz-button
-      nzType="primary"
-      (click)="handleOk()"
-      [nzLoading]="isConfirmLoading"
+    <form
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()"
+      style="display: flex; flex-direction: column; gap: 1rem"
     >
-      Submit
-    </button>
+      <input
+        type="text"
+        nz-input
+        nzSize="large"
+        placeholder="Product Name"
+        [formControl]="form.controls.title"
+      />
+      <input
+        type="number"
+        nz-input
+        nzSize="large"
+        placeholder="Product Price"
+        [formControl]="form.controls.price"
+      />
+      <textarea
+        type="text"
+        nz-input
+        nzSize="large"
+        placeholder="Product Description"
+        [formControl]="form.controls.description"
+        rows="5"
+      ></textarea>
+      <input
+        type="url"
+        nz-input
+        nzSize="large"
+        placeholder="Product Thumbnail URL"
+        [formControl]="form.controls.thumbnail"
+      />
+      <div
+        style="
+          display: flex;
+          justify-content: flex-end;
+          gap: 1rem;
+          margin-top: 2rem;
+        "
+      >
+        <button nz-button nzType="default" (click)="handleCancel()">
+          Cancel
+        </button>
+        <button
+          nz-button
+          type="submit"
+          nzType="primary"
+          (click)="handleOk()"
+          [nzLoading]="isConfirmLoading"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
   </ng-template>
 </nz-modal>
