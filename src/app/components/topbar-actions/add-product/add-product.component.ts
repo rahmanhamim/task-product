@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,6 +8,8 @@ import {
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputGroupComponent, NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { ProductsService } from '../../../services/products.service';
+import { IProduct } from '../../../model';
 
 @Component({
   selector: 'app-add-product',
@@ -17,6 +19,8 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
   styleUrl: './add-product.component.css',
 })
 export class AddProductComponent {
+  productService = inject(ProductsService);
+
   isVisible = false;
   isConfirmLoading = false;
 
@@ -48,6 +52,17 @@ export class AddProductComponent {
   });
 
   onSubmit() {
-    console.log(this.form.value);
+    const newProduct: Partial<IProduct> = {
+      id: Math.floor(Math.random() * 100),
+      title: this.form.value.title || '',
+      price: this.form.value.price ? Number(this.form.value.price) : 0,
+      description: this.form.value.description || '',
+      thumbnail: this.form.value.thumbnail || '',
+    };
+
+    this.productService.onAddProduct(newProduct as IProduct);
+
+    // Reset the form
+    this.form.reset();
   }
 }

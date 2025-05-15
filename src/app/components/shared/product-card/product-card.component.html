@@ -26,7 +26,7 @@
 
   <div class="product-actions">
     <button nz-button>Edit</button>
-    <button nz-button>Delete</button>
+    <button nz-button (click)="onDeleteProduct()">Delete</button>
     @if(!(isAlreadyInCart$ | async)) {
     <button nz-button (click)="onAddToCart()">Add to cart</button>
     }

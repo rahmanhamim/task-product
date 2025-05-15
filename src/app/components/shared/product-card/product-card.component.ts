@@ -5,6 +5,7 @@ import { CartService } from '../../../services/cart.service';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-product-card',
@@ -17,6 +18,7 @@ export class ProductCardComponent {
   @Input({ required: true }) product!: IProduct;
 
   private cartService = inject(CartService);
+  private productService = inject(ProductsService);
 
   isAlreadyInCart$ = this.cartService.cartProducts$.pipe(
     map((items) => items.some((item) => item.id === this.product.id))
@@ -24,5 +26,9 @@ export class ProductCardComponent {
 
   onAddToCart() {
     this.cartService.addProductToCart(this.product);
+  }
+
+  onDeleteProduct() {
+    this.productService.onDeleteProduct(this.product.id);
   }
 }
