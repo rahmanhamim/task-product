@@ -22,21 +22,6 @@ export class ProductsService {
     );
   }
 
-  // fetchProducts({
-  //   limit,
-  //   skip,
-  //   category,
-  // }: {
-  //   limit: number;
-  //   skip: number;
-  //   category?: string;
-  // }) {
-  //   const url = category
-  //     ? `${BASE_URL}/products/category/${category}?limit=${limit}&skip=${skip}`
-  //     : `${BASE_URL}/products?limit=${limit}&skip=${skip}`;
-  //   return this.httpClient.get<{ products: IProduct[] }>(url);
-  // }
-
   fetchProducts({
     limit,
     skip,

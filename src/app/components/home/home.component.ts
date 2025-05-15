@@ -1,7 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../model';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
@@ -37,6 +36,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.queryParamMap.subscribe(
       (queryParams: ParamMap) => {
         this.search = queryParams.get('search'); // Read search query parameter
+        this.limit = queryParams.get('limit') ? +queryParams.get('limit')! : 5;
         this.route.paramMap.subscribe((params: ParamMap) => {
           this.category = params.get('category');
           this.products = [];
