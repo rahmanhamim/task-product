@@ -60,11 +60,7 @@ For more information on using the Angular CLI, including detailed command refere
 
 <!--  -->
 
-<<<<<<< HEAD
 The backend dev needs at least a month to fix issues, but they're not confident. With frontend changes also required, investing two months seems unwise, especially since the backend has been unstable before as well.
 
 New Plan:
 We’ll hire a UI/UX product designer ASAP, then a full-time Node.js dev. The backend will take about at least 4/5 months, and the designer will need 1.5–2 months. We also need a full-time backend dev for other in-house projects.
-=======
-i've installed composer and xammp in my local machine. created a mysql database in hostinger hpanel. installed composer install command in project folder through vs code terminal. and from hostinger remote access allowed for the database now what to do?. generate these also cp .env.example .env. and php artisan key:generate. and after running php artisan serve it's working on local.
->>>>>>> 8ab6be7bf5d66256ea2802b16ae755ad51a888c0
