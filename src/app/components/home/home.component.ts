@@ -6,7 +6,7 @@ import { IProduct } from '../../model';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { SearchFiltersComponent } from '../search-filters/search-filters.component';
+import { TopbarActionsComponent } from '../topbar-actions/topbar-actions.component';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +17,7 @@ import { SearchFiltersComponent } from '../search-filters/search-filters.compone
     ProductCardComponent,
     NzButtonComponent,
     NzSpinModule,
-    SearchFiltersComponent,
+    TopbarActionsComponent,
   ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
