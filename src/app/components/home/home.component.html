@@ -3,7 +3,7 @@
 <div class="home">
   <app-topbar-actions />
 
-  @if(products.length <= 0 && loading) {
+  @if(((products$ | async ) ?? []).length <= 0 && (loading$ | async)) {
   <div
     style="
       display: flex;
@@ -16,18 +16,18 @@
   </div>
   } @else {
   <div class="products-container">
-    @for (product of products; track product.id) {
+    @for (product of products$ | async; track product.id) {
     <app-product-card [product]="product" />
     }
   </div>
 
   <button
     nz-button
-    (click)="loadProducts()"
+    (click)="loadMoreProducts()"
     style="margin-top: 20px"
     nzSize="large"
     nzType="dashed"
-    [nzLoading]="loading"
+    [nzLoading]="loading$ | async"
   >
     Load More
   </button>

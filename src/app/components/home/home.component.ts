@@ -1,12 +1,12 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProductsService } from '../../services/products.service';
-import { IProduct } from '../../model';
 import { ProductCardComponent } from '../shared/product-card/product-card.component';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { TopbarActionsComponent } from '../topbar-actions/topbar-actions.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +18,12 @@ import { TopbarActionsComponent } from '../topbar-actions/topbar-actions.compone
     NzButtonComponent,
     NzSpinModule,
     TopbarActionsComponent,
+    AsyncPipe,
   ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  products: IProduct[] = [];
   limit = 5;
   skip = 0;
-  loading = true;
   category: string | null = null;
   search: string | null = null;
 
@@ -32,35 +31,36 @@ export class HomeComponent implements OnInit, OnDestroy {
   private productsService = inject(ProductsService);
   private routeSub?: Subscription;
 
+  products$ = this.productsService.products$;
+  loading$ = this.productsService.isLoading;
+
   ngOnInit() {
     this.routeSub = this.route.queryParamMap.subscribe(
       (queryParams: ParamMap) => {
-        this.search = queryParams.get('search'); // Read search query parameter
+        this.search = queryParams.get('search');
         this.limit = queryParams.get('limit') ? +queryParams.get('limit')! : 5;
         this.route.paramMap.subscribe((params: ParamMap) => {
           this.category = params.get('category');
-          this.products = [];
-          this.skip = 0;
-          this.loadProducts();
+          this.skip = 0; // Reset skip when category changes
+          this.productsService.loadProducts({
+            limit: this.limit,
+            skip: this.skip,
+            category: this.category || undefined,
+            search: this.search || undefined,
+          });
         });
       }
     );
   }
 
-  loadProducts() {
-    this.loading = true;
-    this.productsService
-      .fetchProducts({
-        limit: this.limit,
-        skip: this.skip,
-        category: this.category ?? undefined,
-        search: this.search ?? undefined, // Pass search term
-      })
-      .subscribe((res) => {
-        this.products = [...this.products, ...res.products];
-        this.skip += this.limit;
-        this.loading = false;
-      });
+  loadMoreProducts() {
+    this.skip += this.limit;
+    this.productsService.onLoadMore({
+      limit: this.limit,
+      skip: this.skip,
+      category: this.category || undefined,
+      search: this.search || undefined,
+    });
   }
 
   ngOnDestroy() {
