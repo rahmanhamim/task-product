@@ -17,6 +17,8 @@ import { IProduct } from '../../../model';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-product',
@@ -27,7 +29,11 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 export class EditProductComponent implements OnInit, OnChanges {
   @Input({ required: true }) product!: IProduct;
 
-  productService = inject(ProductsService);
+  private router = inject(Router);
+  private productService = inject(ProductsService);
+  private authService = inject(AuthService);
+
+  isLoggedIn$ = this.authService.isLoggedIn();
 
   isVisible = false;
   isConfirmLoading = false;
@@ -63,7 +69,13 @@ export class EditProductComponent implements OnInit, OnChanges {
   }
 
   showModal(): void {
-    this.isVisible = true;
+    this.isLoggedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.isVisible = true;
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   handleOk(): void {

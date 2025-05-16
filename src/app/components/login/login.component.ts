@@ -23,6 +23,8 @@ export class LoginComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
 
+  loading = false;
+
   form = new FormGroup({
     username: new FormControl('emilys', {
       validators: [Validators.required],
@@ -53,6 +55,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     const enteredUsername = this.form.value.username;
     const enteredPassword = this.form.value.password;
 
@@ -70,6 +73,9 @@ export class LoginComponent {
         },
         error: (err) => {
           console.error('Login failed:', err);
+        },
+        complete: () => {
+          this.loading = false;
         },
       });
   }

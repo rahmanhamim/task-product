@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   // Check if user is logged in
-  isLoggedIn(): Observable<boolean> {
+  isLoggedIn() {
     return this.user$.pipe(map((user) => !!user));
   }
 }

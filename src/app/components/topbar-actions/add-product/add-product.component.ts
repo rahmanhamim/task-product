@@ -10,6 +10,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ProductsService } from '../../../services/products.service';
 import { IProduct } from '../../../model';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-add-product',
@@ -19,13 +21,23 @@ import { IProduct } from '../../../model';
   styleUrl: './add-product.component.css',
 })
 export class AddProductComponent {
-  productService = inject(ProductsService);
+  private productService = inject(ProductsService);
+  private router = inject(Router);
+  private authService = inject(AuthService);
+
+  isLoggedIn$ = this.authService.isLoggedIn();
 
   isVisible = false;
   isConfirmLoading = false;
 
   showModal(): void {
-    this.isVisible = true;
+    this.isLoggedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.isVisible = true;
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   handleOk(): void {

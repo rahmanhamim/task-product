@@ -4,9 +4,10 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { CartService } from '../../../services/cart.service';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
 import { EditProductComponent } from '../edit-product/edit-product.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-product-card',
@@ -18,18 +19,34 @@ import { EditProductComponent } from '../edit-product/edit-product.component';
 export class ProductCardComponent {
   @Input({ required: true }) product!: IProduct;
 
+  private router = inject(Router);
   private cartService = inject(CartService);
   private productService = inject(ProductsService);
+  private authService = inject(AuthService);
+
+  isLoggedIn$ = this.authService.isLoggedIn();
 
   isAlreadyInCart$ = this.cartService.cartProducts$.pipe(
     map((items) => items.some((item) => item.id === this.product.id))
   );
 
   onAddToCart() {
-    this.cartService.addProductToCart(this.product);
+    this.isLoggedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.cartService.addProductToCart(this.product);
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   onDeleteProduct() {
-    this.productService.onDeleteProduct(this.product.id);
+    this.isLoggedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.productService.onDeleteProduct(this.product.id);
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }
