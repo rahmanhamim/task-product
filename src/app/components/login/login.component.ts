@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { AuthService } from '../../services/auth.service';
@@ -20,6 +20,8 @@ import { IUser } from '../../model';
 })
 export class LoginComponent {
   private authService = inject(AuthService);
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
 
   form = new FormGroup({
     username: new FormControl('emilys', {
@@ -63,7 +65,8 @@ export class LoginComponent {
       .subscribe({
         next: (user: IUser) => {
           this.authService.setUser(user);
-          console.log('Login successful:', user);
+          const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+          this.router.navigate([returnUrl]);
         },
         error: (err) => {
           console.error('Login failed:', err);

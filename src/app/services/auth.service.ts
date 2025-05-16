@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { IUser } from '../model';
+import { Router } from '@angular/router';
 
 const BASE_URL = 'https://dummyjson.com';
 const USER_STORAGE_KEY = 'loggedInUser';
@@ -11,6 +12,8 @@ const USER_STORAGE_KEY = 'loggedInUser';
 })
 export class AuthService {
   private httpClient = inject(HttpClient);
+  private router = inject(Router);
+
   private userSubject = new BehaviorSubject<IUser | null>(
     this.getUserFromStorage()
   );
@@ -40,11 +43,17 @@ export class AuthService {
   logout(): void {
     this.userSubject.next(null);
     localStorage.removeItem(USER_STORAGE_KEY);
+    this.router.navigate(['/']);
   }
 
   // Helper to get user from localStorage
   private getUserFromStorage(): IUser | null {
     const userData = localStorage.getItem(USER_STORAGE_KEY);
     return userData ? JSON.parse(userData) : null;
+  }
+
+  // Check if user is logged in
+  isLoggedIn(): Observable<boolean> {
+    return this.user$.pipe(map((user) => !!user));
   }
 }
