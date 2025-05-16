@@ -1,9 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnDestroy } from '@angular/core';
 import { IProduct } from '../../../model';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { CartService } from '../../../services/cart.service';
 import { AsyncPipe } from '@angular/common';
-import { map } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
 import { EditProductComponent } from '../edit-product/edit-product.component';
@@ -16,13 +16,15 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css',
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnDestroy {
   @Input({ required: true }) product!: IProduct;
 
   private router = inject(Router);
   private cartService = inject(CartService);
   private productService = inject(ProductsService);
   private authService = inject(AuthService);
+
+  loginSubscription?: Subscription;
 
   isLoggedIn$ = this.authService.isLoggedIn();
 
@@ -31,7 +33,7 @@ export class ProductCardComponent {
   );
 
   onAddToCart() {
-    this.isLoggedIn$.subscribe((isLoggedIn) => {
+    this.loginSubscription = this.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
         this.cartService.addProductToCart(this.product);
       } else {
@@ -48,5 +50,11 @@ export class ProductCardComponent {
         this.router.navigate(['/login']);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
   }
 }

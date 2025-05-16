@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -10,6 +10,7 @@ import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { AuthService } from '../../services/auth.service';
 import { IUser } from '../../model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,12 @@ import { IUser } from '../../model';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   private authService = inject(AuthService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
+
+  loginSubscription?: Subscription;
 
   loading = false;
 
@@ -63,7 +66,7 @@ export class LoginComponent {
       return;
     }
 
-    this.authService
+    this.loginSubscription = this.authService
       .login({ username: enteredUsername, password: enteredPassword })
       .subscribe({
         next: (user: IUser) => {
@@ -78,5 +81,9 @@ export class LoginComponent {
           this.loading = false;
         },
       });
+  }
+
+  ngOnDestroy() {
+    this.loginSubscription?.unsubscribe();
   }
 }

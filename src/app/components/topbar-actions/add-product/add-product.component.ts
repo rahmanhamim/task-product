@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, OnDestroy } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -12,6 +12,7 @@ import { ProductsService } from '../../../services/products.service';
 import { IProduct } from '../../../model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-product',
@@ -20,18 +21,20 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css',
 })
-export class AddProductComponent {
+export class AddProductComponent implements OnDestroy {
   private productService = inject(ProductsService);
   private router = inject(Router);
   private authService = inject(AuthService);
 
   isLoggedIn$ = this.authService.isLoggedIn();
 
+  loginSubscription?: Subscription;
+
   isVisible = false;
   isConfirmLoading = false;
 
   showModal(): void {
-    this.isLoggedIn$.subscribe((isLoggedIn) => {
+    this.loginSubscription = this.isLoggedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
         this.isVisible = true;
       } else {
@@ -76,5 +79,11 @@ export class AddProductComponent {
 
     // Reset the form
     this.form.reset();
+  }
+
+  ngOnDestroy() {
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
   }
 }
