@@ -5,6 +5,54 @@
 
   <div class="header-buttons-container">
     <app-cart />
+    @if(currentUser | async) {
+    <div>
+      <a
+        nz-dropdown
+        nzTrigger="click"
+        nz-button
+        [nzDropdownMenu]="menu"
+        nzSize="large"
+        style="display: flex; align-items: center; gap: 0.5rem"
+        ><svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style="width: 16px; height: 16px; margin-top: 2px"
+        >
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g
+            id="SVGRepo_tracerCarrier"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></g>
+          <g id="SVGRepo_iconCarrier">
+            <circle
+              cx="12"
+              cy="6"
+              r="4"
+              stroke="#1C274C"
+              stroke-width="1.5"
+            ></circle>
+            <path
+              d="M19.9975 18C20 17.8358 20 17.669 20 17.5C20 15.0147 16.4183 13 12 13C7.58172 13 4 15.0147 4 17.5C4 19.9853 4 22 12 22C14.231 22 15.8398 21.8433 17 21.5634"
+              stroke="#1C274C"
+              stroke-width="1.5"
+              stroke-linecap="round"
+            ></path>
+          </g>
+        </svg>
+        {{ (currentUser | async)?.username }}
+        <nz-icon nzType="down" />
+      </a>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="logout()">Logout</li>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+    } @else {
     <a nz-button nzType="dashed" nzSize="large" routerLink="/login">Login</a>
+    }
   </div>
 </header>

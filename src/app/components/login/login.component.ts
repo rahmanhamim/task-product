@@ -8,6 +8,8 @@ import {
 import { RouterLink } from '@angular/router';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { AuthService } from '../../services/auth.service';
+import { IUser } from '../../model';
 
 @Component({
   selector: 'app-login',
@@ -17,22 +19,22 @@ import { NzInputModule } from 'ng-zorro-antd/input';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  private destroyRef = inject(DestroyRef);
+  private authService = inject(AuthService);
 
   form = new FormGroup({
-    email: new FormControl('', {
-      validators: [Validators.email, Validators.required],
+    username: new FormControl('emilys', {
+      validators: [Validators.required],
     }),
-    password: new FormControl('', {
+    password: new FormControl('emilyspass', {
       validators: [Validators.required, Validators.minLength(6)],
     }),
   });
 
   get emailIsInvalid() {
     return (
-      this.form.controls.email.touched &&
-      this.form.controls.email.dirty &&
-      this.form.controls.email.invalid
+      this.form.controls.username.touched &&
+      this.form.controls.username.dirty &&
+      this.form.controls.username.invalid
     );
   }
 
@@ -44,10 +46,28 @@ export class LoginComponent {
     );
   }
 
+  logout(): void {
+    this.authService.logout();
+  }
+
   onSubmit() {
-    console.log(this.form);
-    const enteredEmail = this.form.value.email;
+    const enteredUsername = this.form.value.username;
     const enteredPassword = this.form.value.password;
-    console.log(enteredEmail, enteredPassword);
+
+    if (!this.form.valid || !enteredUsername || !enteredPassword) {
+      return;
+    }
+
+    this.authService
+      .login({ username: enteredUsername, password: enteredPassword })
+      .subscribe({
+        next: (user: IUser) => {
+          this.authService.setUser(user);
+          console.log('Login successful:', user);
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+        },
+      });
   }
 }

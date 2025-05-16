@@ -13,7 +13,7 @@
       placeholder="Enter your email"
       nz-input
       nzSize="large"
-      [formControl]="form.controls.email"
+      [formControl]="form.controls.username"
     />
     @if(emailIsInvalid) {
     <p class="error">Invalid email detected</p>
@@ -40,6 +40,7 @@
     class="button"
     nz-button
     nzType="primary"
+    type="submit"
     nzSize="large"
     style="width: 400px; max-width: 95vh; margin-top: 2rem"
   >
