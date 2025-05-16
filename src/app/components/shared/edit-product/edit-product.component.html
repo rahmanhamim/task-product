@@ -1,5 +1,5 @@
-<button nz-button nzType="default" nzSize="large" (click)="showModal()">
-  <span>Add Product</span>
+<button nz-button nzType="dashed" style="width: 100%" (click)="showModal()">
+  <span>Edit</span>
 </button>
 <nz-modal
   [(nzVisible)]="isVisible"
@@ -8,7 +8,7 @@
   [nzFooter]="null"
   (nzOnCancel)="handleCancel()"
 >
-  <ng-template #modalTitle> Add New Product </ng-template>
+  <ng-template #modalTitle> Edit Product </ng-template>
 
   <ng-template #modalContent>
     <form

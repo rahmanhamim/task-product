@@ -100,6 +100,44 @@ export class ProductsService {
     this.productsState.next([product, ...this.productsState.getValue()]);
   }
 
+  onUpdateProduct(updatedProductValues: Partial<IProduct>) {
+    const products = this.productsState.getValue();
+    const productToUpdate = products.find(
+      (p) => p.id === updatedProductValues.id
+    );
+
+    // payload omit id
+    const payload = { ...updatedProductValues, id: undefined };
+
+    if (productToUpdate) {
+      this.httpClient
+        .put(`${BASE_URL}/products/${updatedProductValues.id}`, payload, {
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .subscribe({
+          next: (response) => {
+            const updatedProductFromApi: IProduct = {
+              ...productToUpdate,
+              ...response,
+            };
+
+            // Update the products array with the updated product
+            const updatedProducts = products.map((p) =>
+              p.id === updatedProductValues.id ? updatedProductFromApi : p
+            );
+
+            // Emit the updated state
+            this.productsState.next(updatedProducts);
+          },
+          error: (err: unknown) => {
+            console.error('Failed to update product:', err);
+          },
+        });
+    } else {
+      console.error(`Product with id ${updatedProductValues.id} not found`);
+    }
+  }
+
   fetchProductCategories() {
     return this.httpClient.get<IProductCategory[]>(
       `${BASE_URL}/products/categories`,

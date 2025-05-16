@@ -6,11 +6,12 @@ import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
+import { EditProductComponent } from '../edit-product/edit-product.component';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [NzButtonComponent, AsyncPipe, RouterLink],
+  imports: [NzButtonComponent, AsyncPipe, RouterLink, EditProductComponent],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css',
 })

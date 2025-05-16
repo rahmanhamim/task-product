@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzInputGroupComponent, NzInputModule } from 'ng-zorro-antd/input';
+import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { ProductsService } from '../../../services/products.service';
 import { IProduct } from '../../../model';
