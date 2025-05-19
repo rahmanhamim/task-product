@@ -13,11 +13,18 @@ import { IProduct } from '../../../model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [NzButtonModule, NzModalModule, ReactiveFormsModule, NzInputModule],
+  imports: [
+    NzButtonModule,
+    NzModalModule,
+    ReactiveFormsModule,
+    NzInputModule,
+    AsyncPipe,
+  ],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css',
 })

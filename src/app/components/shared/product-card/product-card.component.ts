@@ -28,8 +28,11 @@ export class ProductCardComponent implements OnDestroy {
 
   isLoggedIn$ = this.authService.isLoggedIn();
 
-  isAlreadyInCart$ = this.cartService.cartProducts$.pipe(
-    map((items) => items.some((item) => item.id === this.product.id))
+  cartProductCount$ = this.cartService.cartProducts$.pipe(
+    map(
+      (items) =>
+        items.find((item) => item.id === this.product.id)?.quantity || 0
+    )
   );
 
   onAddToCart() {

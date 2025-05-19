@@ -10,16 +10,15 @@
       <p class="description">{{ product.description }}</p>
     </a>
 
-    @if(isAlreadyInCart$ | async) {
+    @if(cartProductCount$ | async) {
     <button
       nz-button
-      nzSize="default"
+      nzSize="small"
       class="add-another"
-      nzType="primary"
+      nzType="dashed"
       nzShape="round"
-      (click)="onAddToCart()"
     >
-      Add another
+      In Cart: {{ cartProductCount$ | async }}
     </button>
     }
   </div>
@@ -29,8 +28,6 @@
     <button nz-button (click)="onDeleteProduct()" nzDanger nzType="dashed">
       Delete
     </button>
-    @if(!(isAlreadyInCart$ | async)) {
     <button nz-button (click)="onAddToCart()">Add to cart</button>
-    }
   </div>
 </div>

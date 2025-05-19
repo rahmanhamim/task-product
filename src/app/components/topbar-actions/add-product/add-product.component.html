@@ -1,3 +1,4 @@
+@if(isLoggedIn$ | async) {
 <button nz-button nzType="default" nzSize="large" (click)="showModal()">
   <span>Add Product</span>
 </button>
@@ -69,3 +70,4 @@
     </form>
   </ng-template>
 </nz-modal>
+}
