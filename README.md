@@ -60,7 +60,5 @@ For more information on using the Angular CLI, including detailed command refere
 
 <!--  -->
 
-The backend dev needs at least a month to fix issues, but they're not confident. With frontend changes also required, investing two months seems unwise, especially since the backend has been unstable before as well.
-
-New Plan:
-We’ll hire a UI/UX product designer ASAP, then a full-time Node.js dev. The backend will take about at least 4/5 months, and the designer will need 1.5–2 months. We also need a full-time backend dev for other in-house projects.
+https://dribbble.com/shots/25917847-Job-Portal-Dashboard-Calendar-Page
+https://dribbble.com/search/under-maintenance

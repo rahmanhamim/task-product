@@ -1,16 +1,35 @@
-<form [formGroup]="form">
-  <nz-select
-    formControlName="show"
-    style="min-width: 60px"
-    nzPlaceHolder="Show"
-    nzSize="large"
-    (ngModelChange)="onShowChange($event)"
-  >
-    <nz-option nzValue="1" nzLabel="1"></nz-option>
-    <nz-option nzValue="5" nzLabel="5"></nz-option>
-    <nz-option nzValue="10" nzLabel="10"></nz-option>
-    <nz-option nzValue="15" nzLabel="15"></nz-option>
-    <nz-option nzValue="20" nzLabel="20"></nz-option>
-    <nz-option nzValue="25" nzLabel="25"></nz-option>
-  </nz-select>
-</form>
+<div class="filters">
+  <form [formGroup]="form">
+    <nz-select
+      formControlName="show"
+      style="min-width: 60px"
+      nzPlaceHolder="Show"
+      nzSize="large"
+      (ngModelChange)="onShowChange($event)"
+    >
+      <nz-option nzValue="1" nzLabel="1"></nz-option>
+      <nz-option nzValue="5" nzLabel="5"></nz-option>
+      <nz-option nzValue="10" nzLabel="10"></nz-option>
+      <nz-option nzValue="15" nzLabel="15"></nz-option>
+      <nz-option nzValue="20" nzLabel="20"></nz-option>
+      <nz-option nzValue="25" nzLabel="25"></nz-option>
+    </nz-select>
+  </form>
+
+  <form [formGroup]="categoryForm">
+    <nz-select
+      formControlName="category"
+      style="min-width: 60px"
+      nzPlaceHolder="Category"
+      nzSize="large"
+      (ngModelChange)="onCategoryChange($event)"
+    >
+      @for (category of productCategories; track category.slug) {
+      <nz-option
+        nzValue="{{ category.slug }}"
+        nzLabel="{{ category.name }}"
+      ></nz-option>
+      }
+    </nz-select>
+  </form>
+</div>
