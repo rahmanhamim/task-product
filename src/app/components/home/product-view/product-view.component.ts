@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { IProduct } from '../../../model';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
