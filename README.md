@@ -59,3 +59,30 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 <!--  -->
+
+Asymptotic notations.
+Mathematical tools to represent time and space complexity
+
+- Big O notation - Worst case complexity
+- Omega notation - Best case complexity
+- Theta notation - Average case complexity
+
+<!-- function fibo(n) {
+    const output = []
+    Array(n).fill().forEach((_, index) => {
+        if(output.length > 1) {
+            let newNumber =  output[index - 1] + output[index -2];
+            output.push(newNumber)
+        } else {
+            output.push(index)
+        }
+  });
+   console.log(output)
+}
+
+fibo(10)
+
+is this code correct outputting [
+  0, 1,  1,  2,  3,
+  5, 8, 13, 21, 34
+] -->
