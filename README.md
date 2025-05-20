@@ -85,4 +85,21 @@ fibo(10)
 is this code correct outputting [
   0, 1,  1,  2,  3,
   5, 8, 13, 21, 34
+
+
+
+
+function factorial(n) {
+  let output = 1;
+  for(let i = 1; i <= n; i++) {
+    output *= i;
+  }
+
+  console.log(output)
+}
+
+factorial(0)
+factorial(1)
+factorial(5)
+
 ] -->

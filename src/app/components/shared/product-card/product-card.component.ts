@@ -8,6 +8,8 @@ import { Router, RouterLink } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
 import { EditProductComponent } from '../edit-product/edit-product.component';
 import { AuthService } from '../../../services/auth.service';
+import { Store } from '@ngrx/store';
+import { addToCart } from '../../../store/cart.actions';
 
 @Component({
   selector: 'app-product-card',
@@ -18,6 +20,8 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class ProductCardComponent implements OnDestroy {
   @Input({ required: true }) product!: IProduct;
+
+  private store = inject(Store);
 
   private router = inject(Router);
   private cartService = inject(CartService);
@@ -43,6 +47,8 @@ export class ProductCardComponent implements OnDestroy {
         this.router.navigate(['/login']);
       }
     });
+
+    this.store.dispatch(addToCart());
   }
 
   onDeleteProduct() {

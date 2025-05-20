@@ -13,6 +13,8 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideStore } from '@ngrx/store';
+import { cartReducer } from './store/cart.reducers';
 
 function loggingInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
   console.log('Outgoing request', req);
@@ -31,5 +33,6 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(withInterceptors([loggingInterceptor])),
     provideAnimationsAsync(),
+    provideStore({ cart: cartReducer }),
   ],
 };
