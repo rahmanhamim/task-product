@@ -1,5 +1,5 @@
 <nz-space>
-  <nz-badge [nzCount]="(cartTotalItemsCount | async) || 0" nzShowZero>
+  <nz-badge [nzCount]="cartTotalItemsCount || 0" nzShowZero>
     <button nz-button nzSize="large" nzType="primary" (click)="open()">
       Cart
     </button>
@@ -14,12 +14,12 @@
   (nzOnClose)="close()"
 >
   <ng-container *nzDrawerContent>
-    @for (cartProduct of cartProducts | async; track cartProduct.id) {
+    @for (cartProduct of cartProducts; track cartProduct.id) {
     <app-cart-product-card [cartProduct]="cartProduct" />
     }
 
     <!-- shipping -->
-    @if((cartProducts | async)?.length === 0) {
+    @if(cartProducts?.length === 0) {
     <h2>Cart is empty</h2>
     } @else {
     <app-shipping />

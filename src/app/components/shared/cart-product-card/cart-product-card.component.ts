@@ -1,8 +1,14 @@
 import { Component, inject, Input } from '@angular/core';
 import { ICartItem } from '../../../model';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { CartService } from '../../../services/cart.service';
 import { CurrencyPipe } from '@angular/common';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/app.state';
+import {
+  addToCart,
+  removeProductFromCart,
+} from '../../../store/cart/cart.actions';
+import { selectCartItems } from '../../../store/cart/cart.selector';
 
 @Component({
   selector: 'app-cart-product-card',
@@ -14,13 +20,23 @@ import { CurrencyPipe } from '@angular/common';
 export class CartProductCardComponent {
   @Input({ required: true }) cartProduct!: ICartItem;
 
-  private cartService = inject(CartService);
+  private store = inject<Store<AppState>>(Store);
+
+  cartProducts?: ICartItem[];
+
+  ngOnInit() {
+    this.store.select(selectCartItems).subscribe({
+      next: (cartItems) => {
+        this.cartProducts = cartItems;
+      },
+    });
+  }
 
   onAddToCart() {
-    this.cartService.addProductToCart(this.cartProduct);
+    this.store.dispatch(addToCart({ product: this.cartProduct }));
   }
 
   onRemoveFromCart() {
-    this.cartService.removeProductFromCart(this.cartProduct.id);
+    this.store.dispatch(removeProductFromCart({ id: this.cartProduct.id }));
   }
 }

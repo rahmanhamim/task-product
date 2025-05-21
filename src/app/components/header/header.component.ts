@@ -6,6 +6,10 @@ import { AuthService } from '../../services/auth.service';
 import { AsyncPipe } from '@angular/common';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ICartItem } from '../../model';
+import { AppState } from '../../store/app.state';
+import { ICartItemState } from '../../store/cart/cart.reducers';
 
 @Component({
   selector: 'app-header',
@@ -22,10 +26,7 @@ import { Store } from '@ngrx/store';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  private store = inject(Store);
   private authService = inject(AuthService);
-
-  ngrxCart = this.store.select('cart');
 
   currentUser = this.authService.user$;
 

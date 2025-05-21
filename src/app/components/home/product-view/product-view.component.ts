@@ -3,10 +3,12 @@ import { IProduct } from '../../../model';
 import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
 import { CurrencyPipe } from '@angular/common';
-import { CartService } from '../../../services/cart.service';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/app.state';
+import { addToCart } from '../../../store/cart/cart.actions';
 
 @Component({
   selector: 'app-product-view',
@@ -24,7 +26,7 @@ export class ProductViewComponent implements OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService,
-    private cartService: CartService
+    private store: Store<AppState>
   ) {}
 
   productSubscription?: Subscription;
@@ -51,7 +53,7 @@ export class ProductViewComponent implements OnDestroy {
 
   onAddToCart() {
     if (this.product) {
-      this.cartService.addProductToCart(this.product);
+      this.store.dispatch(addToCart({ product: this.product }));
     }
   }
 

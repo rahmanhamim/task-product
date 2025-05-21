@@ -8,7 +8,9 @@ import {
 } from '@angular/forms';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
-import { CartService } from '../../../services/cart.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/app.state';
+import { selectCartTotalPrice } from '../../../store/cart/cart.selector';
 
 @Component({
   selector: 'app-shipping',
@@ -24,9 +26,9 @@ import { CartService } from '../../../services/cart.service';
   styleUrl: './shipping.component.css',
 })
 export class ShippingComponent {
-  private cartService = inject(CartService);
+  private store = inject<Store<AppState>>(Store);
 
-  totalAmount = this.cartService.totalPrice$;
+  totalAmount$ = this.store.select(selectCartTotalPrice);
 
   form = new FormGroup({
     name: new FormControl('', {
