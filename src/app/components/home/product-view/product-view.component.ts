@@ -5,10 +5,15 @@ import { ProductsService } from '../../../services/products.service';
 import { CurrencyPipe } from '@angular/common';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/app.state';
 import { addToCart } from '../../../store/cart/cart.actions';
+import { loadProducts } from '../../../store/product/product.action';
+import {
+  selectProducts,
+  selectProductState,
+} from '../../../store/product/product.selector';
 
 @Component({
   selector: 'app-product-view',
@@ -27,11 +32,26 @@ export class ProductViewComponent implements OnDestroy {
     private route: ActivatedRoute,
     private productsService: ProductsService,
     private store: Store<AppState>
-  ) {}
+  ) {
+    this.store.dispatch(loadProducts());
+    this.ngrxProducts$ = this.store.select(selectProducts);
+  }
 
   productSubscription?: Subscription;
 
+  // ----------------------------------------------------------
+  // ----------------------------------------------------------
+
+  ngrxProducts$?: Observable<IProduct[] | null>;
+
+  // ----------------------------------------------------------
+  // ----------------------------------------------------------
+
   ngOnInit(): void {
+    this.ngrxProducts$?.subscribe((products) => {
+      console.log('products from ngrx', products);
+    });
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.productSubscription = this.productsService
